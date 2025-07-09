@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kenneth G. Caingcoy | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #3a7afe;
+      --secondary: #181c2f;
+      --accent: #f3b664;
+      --bg: #14161c;
+      --bg-gradient: linear-gradient(135deg, #181c2f 0%, #232946 100%);
+      --white: #f7f7fa;
+      --card-bg: #1b1e2b;
+      --border: #232946;
+      --muted: #b3b8c5;
+      --shadow: 0 2px 16px #00000022;
+      --hover: #232946;
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Share Tech Mono', 'Montserrat', monospace, sans-serif;
+      background: var(--bg-gradient);
+      color: var(--white);
+      position: relative;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+      background: radial-gradient(circle at 80% 20%, #23294633 0%, transparent 60%),
+                  radial-gradient(circle at 20% 80%, #3a7afe22 0%, transparent 70%);
+      pointer-events: none;
+    }
+    header {
+      background: transparent;
+      color: var(--white);
+      padding: 2.2rem 0 1.5rem 0;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.3rem;
+      letter-spacing: 2px;
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--primary);
+      text-shadow: 0 2px 8px #23294655;
+      font-weight: 700;
+    }
+    header p {
+      margin: 0.5rem 0 0 0;
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: 1px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      text-shadow: none;
+    }
+    nav {
+      margin-top: 1.2rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      z-index: 2;
+      position: relative;
+    }
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      padding: 0.45rem 1.1rem;
+      border-radius: 6px;
+      border: 1.5px solid transparent;
+      background: transparent;
+      transition: 
+        color 0.18s, 
+        border 0.18s, 
+        background 0.18s;
+      position: relative;
+    }
+    nav a:hover, nav a:focus {
+      color: var(--primary);
+      border: 1.5px solid var(--primary);
+      background: var(--hover);
+    }
+    .container {
+      max-width: 1000px;
+      margin: 2.2rem auto;
+      padding: 0 1.2rem;
+      position: relative;
+      z-index: 2;
+    }
+    section {
+      margin-bottom: 3rem;
+      position: relative;
+      z-index: 2;
+    }
+    h2 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.6rem;
+      border-left: 4px solid var(--accent);
+      padding-left: 0.8rem;
+      letter-spacing: 1.5px;
+      font-family: 'Share Tech Mono', monospace;
+      font-weight: 700;
+      text-shadow: none;
+    }
+    .about-section {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 1.7rem 1.5rem 1.5rem 1.5rem;
+      margin-bottom: 3rem;
+      border: 1.5px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .about-section::before {
+      content: "";
+      position: absolute;
+      top: -20px; left: -20px; right: -20px; bottom: -20px;
+      background: radial-gradient(circle at 80% 10%, #3a7afe11 0%, transparent 70%);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .about-section p {
+      font-size: 1.08rem;
+      line-height: 1.7;
+      margin: 0 0 1rem 0;
+      color: var(--muted);
+      position: relative;
+      z-index: 1;
+      text-shadow: none;
+    }
+    .about-section .about-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+      letter-spacing: 1.5px;
+      font-family: 'Share Tech Mono', monospace;
+      position: relative;
+      z-index: 1;
+    }
+    .about-section .about-email {
+      font-size: 1rem;
+      margin-bottom: 1.1rem;
+      color: var(--accent);
+      position: relative;
+      z-index: 1;
+    }
+    .about-section .about-email a {
+      color: var(--primary);
+      text-decoration: underline;
+      transition: color 0.18s;
+    }
+    .about-section .about-email a:hover {
+      color: var(--accent);
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.5rem;
+      z-index: 2;
+      position: relative;
+    }
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      padding: 1.2rem 1rem 1rem 1rem;
+      transition: transform 0.18s, box-shadow 0.18s, border 0.18s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1.5px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card:hover {
+      transform: translateY(-4px) scale(1.025);
+      box-shadow: 0 6px 32px #3a7afe33, 0 1.5px 8px #23294633;
+      border: 1.5px solid var(--primary);
+      background: #20233a;
+    }
+    .project-title {
+      font-size: 1.13rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+      letter-spacing: 1px;
+      font-family: 'Share Tech Mono', monospace;
+      position: relative;
+      z-index: 1;
+    }
+    .project-desc {
+      flex: 1;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+      font-size: 0.98rem;
+      position: relative;
+      z-index: 1;
+      text-shadow: none;
+    }
+    .project-links a {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+      margin-right: 1rem;
+      font-size: 0.98rem;
+      letter-spacing: 1px;
+      border-bottom: 1.5px solid transparent;
+      transition: color 0.18s, border-color 0.18s;
+      position: relative;
+      z-index: 1;
+    }
+    .project-links a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+    .skills-categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1.2rem;
+      z-index: 2;
+      position: relative;
+    }
+    .skills-category {
+      flex: 1 1 220px;
+      min-width: 180px;
+      background: var(--card-bg);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      padding: 1rem 0.8rem 0.8rem 0.8rem;
+      display: flex;
+      flex-direction: column;
+      border: 1.5px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .skills-category h3 {
+      color: var(--primary);
+      font-size: 1rem;
+      margin-bottom: 0.7rem;
+      margin-top: 0;
+      text-align: left;
+      letter-spacing: 1px;
+      font-family: 'Share Tech Mono', monospace;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+    .skills-boxes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      z-index: 1;
+      position: relative;
+    }
+    .skill-box {
+      background: #232946;
+      color: var(--white);
+      border: 1.2px solid var(--primary);
+      border-radius: 6px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.97rem;
+      font-weight: 600;
+      box-shadow: none;
+      transition: 
+        background 0.18s, 
+        color 0.18s, 
+        border 0.18s;
+      margin-bottom: 0.1rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+    }
+    .skill-box:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    footer {
+      background: var(--secondary);
+      color: var(--muted);
+      text-align: center;
+      padding: 1rem 0;
+      margin-top: 2rem;
+      font-size: 0.98rem;
+      letter-spacing: 1px;
+      border-top: 1.5px solid var(--primary);
+      box-shadow: 0 -2px 16px #23294622;
+      position: relative;
+      z-index: 2;
+    }
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 10px;
+      background: #232946;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #232946;
+      border-radius: 8px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3a7afe;
+    }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .container { padding: 0 0.7rem; }
+      .skills-categories { flex-direction: column; gap: 1rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.1rem; }
+      h2 { font-size: 1rem; }
+      .about-section { padding: 0.7rem; }
+      .skills-category { padding: 0.5rem; }
+      .project-card { padding: 0.7rem; }
+      nav { gap: 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Kenneth G. Caingcoy</h1>
+    <p>Information Technology Graduate &amp; IoT Innovator</p>
+    <nav>
+      <a href="#about">About Me</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <div class="container">
+    <section id="about" class="about-section">
+      <div class="about-name">Kenneth G. Caingcoy</div>
+      <p>
+        I am a recent Information Technology graduate from Quezon City University with solid expertise in IoT systems, machine learning, computer vision, and programming. Skilled in Python, C++, JavaScript, and Visual Basic, I have hands-on experience working with microcontrollers like ESP32 and Arduino, and utilizing tools such as Edge Impulse, YOLO, and Git. My background also includes web development and cloud integration, enabling me to design and implement smart, automated systems with real-time data monitoring.
+      </p>
+      <p>
+        I successfully completed my capstone project—a Smart IoT-Based Organic Plant Waste Composting Production System—that incorporated advanced object detection algorithms for efficient waste segregation and process automation. I am now actively seeking opportunities where I can apply my technical skills and passion for sustainable technology and IoT innovation to contribute to impactful projects and help organizations advance their digital transformation goals.
+      </p>
+    </section>
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div>
+            <div class="project-title">Capstone Project: Smart IoT-Based Organic Plant Waste Composting Production System</div>
+            <div class="project-desc">
+              <strong>Quezon City University</strong><br>
+              <em>July 2024 – March 2025</em>
+              <ul style="margin: 0.5em 0 0 1.2em; color: var(--muted); font-size: 0.98rem; padding-left: 1em;">
+                <li>Designed and built an IoT-based fertilizer production system integrating ESP32, sensors, and automation.</li>
+                <li>Implemented cloud-based waste segregation using the FOMO (Faster Objects, More Objects) object detection algorithm.</li>
+                <li>Automated composting features include temperature regulation, moisture control, and servo-driven waste sorting.</li>
+                <li>Developed a web interface for sensor monitoring, user roles, and fertilizer production reports.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="#" target="_blank">GitHub</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <div>
+            <div class="project-title">Task Manager Desktop App (Visual Basic .NET)</div>
+            <div class="project-desc">
+              <strong>Personal Project</strong><br>
+              <em>2024</em>
+              <ul style="margin: 0.5em 0 0 1.2em; color: var(--muted); font-size: 0.98rem; padding-left: 1em;">
+                <li>Developed a simple yet powerful Task Manager desktop application using Visual Basic (.NET Framework).</li>
+                <li>Features include add/edit/delete tasks, set deadlines, mark complete, save/load data locally (JSON), and export to CSV.</li>
+                <li>Supports task priority, category/tag, search/filter, sorting, overdue highlighting, and bulk delete of completed tasks.</li>
+                <li>Utilized OOP principles and modern .NET libraries for data handling and UI responsiveness.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="#" target="_blank">GitHub</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <div>
+            <div class="project-title">Bading si Ryan</div>
+            <div class="project-desc">
+              Bading na Bading si Ryan
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="#" target="_blank">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="skills">
+      <h2>Skills &amp; Interests</h2>
+      <div class="skills-categories">
+        <div class="skills-category">
+          <h3>Programming Languages</h3>
+          <div class="skills-boxes">
+            <div class="skill-box">Python</div>
+            <div class="skill-box">C++</div>
+            <div class="skill-box">JavaScript</div>
+            <div class="skill-box">HTML/CSS</div>
+            <div class="skill-box">Visual Basic</div>
+            <div class="skill-box">.NET Framework</div>
+          </div>
+        </div>
+        <div class="skills-category">
+          <h3>Frameworks &amp; Tools</h3>
+          <div class="skills-boxes">
+            <div class="skill-box">React</div>
+            <div class="skill-box">Node.js</div>
+            <div class="skill-box">Firebase</div>
+            <div class="skill-box">Git &amp; GitHub</div>
+            <div class="skill-box">Edge Impulse</div>
+            <div class="skill-box">YOLO</div>
+          </div>
+        </div>
+        <div class="skills-category">
+          <h3>Hardware &amp; Platforms</h3>
+          <div class="skills-boxes">
+            <div class="skill-box">ESP32</div>
+            <div class="skill-box">Arduino</div>
+            <div class="skill-box">Cloud Integration</div>
+            <div class="skill-box">Google Workspace</div>
+            <div class="skill-box">Microsoft Office</div>
+          </div>
+        </div>
+        <div class="skills-category">
+          <h3>Concepts &amp; Interests</h3>
+          <div class="skills-boxes">
+            <div class="skill-box">Object Detection</div>
+            <div class="skill-box">IoT Systems</div>
+            <div class="skill-box">Microcontrollers</div>
+            <div class="skill-box">Web Development</div>
+            <div class="skill-box">Smart Agriculture</div>
+            <div class="skill-box">Sustainable Tech Solutions</div>
+            <div class="skill-box">Esports &amp; Mobile Gaming</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>
+        I'm excited to connect with you! Whether you have a project idea, want to collaborate, or just want to say hello, don't hesitate to reach out. Let's create something amazing together!
+      </p>
+      <p>
+        <strong>Email:</strong> <a href="mailto:caingcoy.kenneth.02152003@gmail.com">caingcoy.kenneth.02152003@gmail.com</a>
+      </p>
+      <p>
+        <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/kenneth-caingcoy-90762b369?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank">Kenneth Caingcoy</a>
+      </p>
+      <p>
+        <strong>Contact Number:</strong> 09179703454
+      </p>
+    </section>
+  </div>
+  <footer>
+    &copy; 2024 Kenneth G. Caingcoy. All rights reserved.
+  </footer>
+</body>
+</html>

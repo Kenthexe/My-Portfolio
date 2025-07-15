@@ -2,52 +2,111 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>Kenneth G. Caingcoy | Portfolio</title>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #3a7afe;
-      --secondary: #181c2f;
-      --accent: #f3b664;
-      --bg: #14161c;
-      --bg-gradient: linear-gradient(135deg, #181c2f 0%, #232946 100%);
-      --white: #f7f7fa;
-      --card-bg: #1b1e2b;
-      --border: #232946;
-      --muted: #b3b8c5;
-      --shadow: 0 2px 16px #00000022;
-      --hover: #232946;
+      --primary: #bfaee3;
+      --secondary: #F6F7FB;
+      --accent: #FFB085;
+      --bg: #F9F6F2;
+      --bg-gradient: linear-gradient(135deg, #F6F7FB 0%, #F9F6F2 100%);
+      --white: #fffdfa;
+      --card-bg: #fff6ee;
+      --border: #e0d7d1;
+      --muted: #7d7c7a;
+      --shadow: 0 2px 16px #e0d7d155;
+      --hover: #f3e9e1;
+      --sakura-pink: #ffe4ef;
+      --sakura-petal: #f9b6c5;
+      --transition: cubic-bezier(.77,0,.18,1);
     }
     html, body {
       height: 100%;
+      scroll-behavior: smooth;
     }
     body {
       margin: 0;
       min-height: 100vh;
       font-family: 'Share Tech Mono', 'Montserrat', monospace, sans-serif;
       background: var(--bg-gradient);
-      color: var(--white);
+      color: #3a3a3a;
       position: relative;
       overflow-x: hidden;
+    }
+    .sakura-bg {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      background: transparent;
+    }
+    .sakura-bg img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      opacity: 0.25;
+      pointer-events: none;
+      user-select: none;
+      display: block;
+      animation: sakuraFade 8s ease-in-out infinite alternate;
+      transition: opacity 1.2s;
+    }
+    .sakura-bg.night img {
+      opacity: 0.12 !important;
+      filter: grayscale(0.7) brightness(0.7) blur(1px);
+      transition: opacity 1.2s, filter 1.2s;
+    }
+    @keyframes sakuraFade {
+      0% { opacity: 0.18; }
+      100% { opacity: 0.28; }
     }
     body::before {
       content: "";
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      z-index: 0;
-      background: radial-gradient(circle at 80% 20%, #23294633 0%, transparent 60%),
-                  radial-gradient(circle at 20% 80%, #3a7afe22 0%, transparent 70%);
+      z-index: 1;
+      background: radial-gradient(circle at 80% 20%, #b3aaff33 0%, transparent 60%),
+                  radial-gradient(circle at 20% 80%, #ffd6b322 0%, transparent 70%);
       pointer-events: none;
+      animation: bgGlow 8s var(--transition) infinite alternate;
+    }
+    @keyframes bgGlow {
+      0% { filter: blur(0px);}
+      100% { filter: blur(2.5px);}
     }
     header {
       background: transparent;
-      color: var(--white);
+      color: #3a3a3a;
       padding: 2.2rem 0 1.5rem 0;
       text-align: center;
       position: relative;
-      z-index: 2;
+      z-index: 3;
+      transition: background 0.4s var(--transition), box-shadow 0.4s var(--transition), top 0.4s var(--transition), opacity 0.3s;
+      will-change: top, opacity;
+    }
+    header.sticky {
+      background: var(--white);
+      box-shadow: 0 2px 16px #b3aaff22;
+      position: sticky;
+      top: 0;
+      animation: stickyFadeIn 0.5s;
+      opacity: 1;
+      transition: background 0.4s var(--transition), box-shadow 0.4s var(--transition), top 0.4s var(--transition), opacity 0.3s;
+    }
+    header.hide {
+      opacity: 0;
+      pointer-events: none;
+      top: -80px !important;
+      transition: opacity 0.3s, top 0.4s var(--transition);
+    }
+    @keyframes stickyFadeIn {
+      from { opacity: 0; transform: translateY(-20px);}
+      to { opacity: 1; transform: translateY(0);}
     }
     header h1 {
       margin: 0;
@@ -55,8 +114,16 @@
       letter-spacing: 2px;
       font-family: 'Share Tech Mono', monospace;
       color: var(--primary);
-      text-shadow: 0 2px 8px #23294655;
+      text-shadow: 0 2px 8px #b3aaff33;
       font-weight: 700;
+      cursor: pointer;
+      transition: color 0.3s var(--transition), text-shadow 0.3s var(--transition);
+      word-break: break-word;
+    }
+    header h1:hover {
+      color: var(--accent);
+      text-shadow: 0 4px 16px #ffb08544;
+      transform: scale(1.04) rotate(-1deg);
     }
     header p {
       margin: 0.5rem 0 0 0;
@@ -66,17 +133,22 @@
       font-family: 'Montserrat', sans-serif;
       font-weight: 500;
       text-shadow: none;
+      opacity: 0.92;
+      transition: opacity 0.3s;
+      word-break: break-word;
     }
     nav {
       margin-top: 1.2rem;
       display: flex;
       justify-content: center;
       gap: 2rem;
-      z-index: 2;
+      z-index: 3;
       position: relative;
+      background: transparent;
+      flex-wrap: wrap;
     }
     nav a {
-      color: var(--white);
+      color: #3a3a3a;
       text-decoration: none;
       font-weight: 600;
       font-size: 1rem;
@@ -86,27 +158,70 @@
       border: 1.5px solid transparent;
       background: transparent;
       transition: 
-        color 0.18s, 
-        border 0.18s, 
-        background 0.18s;
+        color 0.18s var(--transition), 
+        border 0.18s var(--transition), 
+        background 0.18s var(--transition),
+        box-shadow 0.18s var(--transition),
+        transform 0.18s var(--transition);
       position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    nav a::after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 0;
+      height: 2.5px;
+      background: var(--primary);
+      border-radius: 2px;
+      transition: width 0.3s var(--transition), left 0.3s var(--transition);
     }
     nav a:hover, nav a:focus {
       color: var(--primary);
       border: 1.5px solid var(--primary);
       background: var(--hover);
+      box-shadow: 0 2px 12px #b3aaff22;
+      transform: translateY(-2px) scale(1.04);
+    }
+    nav a:hover::after, nav a:focus::after {
+      width: 80%;
+      left: 10%;
+    }
+    nav a.active {
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+      background: var(--sakura-pink);
+      box-shadow: 0 2px 12px #ffb08522;
     }
     .container {
       max-width: 1000px;
       margin: 2.2rem auto;
       padding: 0 1.2rem;
       position: relative;
-      z-index: 2;
+      z-index: 3;
+      animation: fadeInUp 1.2s var(--transition);
+      width: 100%;
+      box-sizing: border-box;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
     }
     section {
       margin-bottom: 3rem;
       position: relative;
-      z-index: 2;
+      z-index: 3;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s var(--transition), transform 0.7s var(--transition);
+      box-sizing: border-box;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     h2 {
       color: var(--primary);
@@ -118,6 +233,22 @@
       font-family: 'Share Tech Mono', monospace;
       font-weight: 700;
       text-shadow: none;
+      position: relative;
+      overflow: hidden;
+      word-break: break-word;
+    }
+    h2::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 2px;
+      margin-top: 0.2em;
+      transition: width 0.5s var(--transition);
+    }
+    section.visible h2::after {
+      width: 60%;
     }
     .about-section {
       background: var(--card-bg);
@@ -128,14 +259,25 @@
       border: 1.5px solid var(--border);
       position: relative;
       overflow: hidden;
+      transition: box-shadow 0.3s var(--transition), border 0.3s var(--transition);
+      box-sizing: border-box;
+    }
+    .about-section:hover {
+      box-shadow: 0 6px 32px #b3aaff33, 0 1.5px 8px #ffd6b333;
+      border: 1.5px solid var(--primary);
     }
     .about-section::before {
       content: "";
       position: absolute;
       top: -20px; left: -20px; right: -20px; bottom: -20px;
-      background: radial-gradient(circle at 80% 10%, #3a7afe11 0%, transparent 70%);
+      background: radial-gradient(circle at 80% 10%, #b3aaff11 0%, transparent 70%);
       z-index: 0;
       pointer-events: none;
+      animation: aboutGlow 5s var(--transition) infinite alternate;
+    }
+    @keyframes aboutGlow {
+      0% { filter: blur(0px);}
+      100% { filter: blur(2.5px);}
     }
     .about-section p {
       font-size: 1.08rem;
@@ -145,6 +287,8 @@
       position: relative;
       z-index: 1;
       text-shadow: none;
+      transition: color 0.3s;
+      word-break: break-word;
     }
     .about-section .about-name {
       font-size: 1.4rem;
@@ -155,6 +299,13 @@
       font-family: 'Share Tech Mono', monospace;
       position: relative;
       z-index: 1;
+      transition: color 0.3s;
+      cursor: pointer;
+      word-break: break-word;
+    }
+    .about-section .about-name:hover {
+      color: var(--accent);
+      text-shadow: 0 2px 8px #ffb08533;
     }
     .about-section .about-email {
       font-size: 1rem;
@@ -173,29 +324,43 @@
     }
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 1.5rem;
-      z-index: 2;
+      z-index: 3;
       position: relative;
+      width: 100%;
+      box-sizing: border-box;
     }
     .project-card {
       background: var(--card-bg);
-      border-radius: 10px;
+      border-radius: 14px;
       box-shadow: var(--shadow);
       padding: 1.2rem 1rem 1rem 1rem;
-      transition: transform 0.18s, box-shadow 0.18s, border 0.18s;
+      transition: 
+        transform 0.28s var(--transition), 
+        box-shadow 0.28s var(--transition), 
+        border 0.28s var(--transition),
+        background 0.28s var(--transition);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       border: 1.5px solid var(--border);
       position: relative;
       overflow: hidden;
+      cursor: pointer;
+      opacity: 0.96;
+      min-width: 0;
+      box-sizing: border-box;
     }
-    .project-card:hover {
-      transform: translateY(-4px) scale(1.025);
-      box-shadow: 0 6px 32px #3a7afe33, 0 1.5px 8px #23294633;
+    .project-card:hover, .project-card:focus-within {
+      transform: translateY(-8px) scale(1.035) rotate(-0.5deg);
+      box-shadow: 0 8px 36px #b3aaff44, 0 2px 12px #ffd6b344;
       border: 1.5px solid var(--primary);
-      background: #20233a;
+      background: #f3e9e1;
+      opacity: 1;
+    }
+    .project-card:active {
+      transform: scale(0.98);
     }
     .project-title {
       font-size: 1.13rem;
@@ -206,6 +371,11 @@
       font-family: 'Share Tech Mono', monospace;
       position: relative;
       z-index: 1;
+      transition: color 0.3s;
+      word-break: break-word;
+    }
+    .project-card:hover .project-title {
+      color: var(--accent);
     }
     .project-desc {
       flex: 1;
@@ -215,6 +385,29 @@
       position: relative;
       z-index: 1;
       text-shadow: none;
+      transition: color 0.3s;
+      word-break: break-word;
+    }
+    .project-image-section {
+      margin: 0.7em 0 1em 0;
+      text-align: center;
+      z-index: 1;
+      position: relative;
+    }
+    .project-image-section img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px #b3aaff22;
+      border: 1.5px solid var(--border);
+      background: #fff;
+      transition: box-shadow 0.18s var(--transition), border 0.18s var(--transition), transform 0.18s var(--transition);
+      cursor: pointer;
+      height: auto;
+    }
+    .project-image-section img:hover {
+      box-shadow: 0 4px 24px #6C63FF33;
+      border: 1.5px solid var(--primary);
+      transform: scale(1.04) rotate(-1deg);
     }
     .project-links a {
       text-decoration: none;
@@ -224,21 +417,30 @@
       font-size: 0.98rem;
       letter-spacing: 1px;
       border-bottom: 1.5px solid transparent;
-      transition: color 0.18s, border-color 0.18s;
+      transition: color 0.18s var(--transition), border-color 0.18s var(--transition), background 0.18s var(--transition);
       position: relative;
       z-index: 1;
+      padding: 0.2em 0.6em;
+      border-radius: 5px;
+      word-break: break-word;
+      display: inline-block;
     }
-    .project-links a:hover {
+    .project-links a:hover, .project-links a:focus {
       color: var(--accent);
       border-color: var(--accent);
+      background: var(--sakura-pink);
+      box-shadow: 0 2px 8px #ffb08522;
+      transform: scale(1.07);
     }
     .skills-categories {
       display: flex;
       flex-wrap: wrap;
       gap: 1.5rem;
       margin-top: 1.2rem;
-      z-index: 2;
+      z-index: 3;
       position: relative;
+      width: 100%;
+      box-sizing: border-box;
     }
     .skills-category {
       flex: 1 1 220px;
@@ -252,6 +454,13 @@
       border: 1.5px solid var(--border);
       position: relative;
       overflow: hidden;
+      transition: box-shadow 0.3s var(--transition), border 0.3s var(--transition), background 0.3s var(--transition);
+      box-sizing: border-box;
+    }
+    .skills-category:hover {
+      box-shadow: 0 6px 32px #b3aaff33, 0 1.5px 8px #ffd6b333;
+      border: 1.5px solid var(--primary);
+      background: #f3e9e1;
     }
     .skills-category h3 {
       color: var(--primary);
@@ -264,6 +473,11 @@
       font-weight: 700;
       position: relative;
       z-index: 1;
+      transition: color 0.3s;
+      word-break: break-word;
+    }
+    .skills-category:hover h3 {
+      color: var(--accent);
     }
     .skills-boxes {
       display: flex;
@@ -271,10 +485,12 @@
       gap: 0.5rem;
       z-index: 1;
       position: relative;
+      width: 100%;
+      box-sizing: border-box;
     }
     .skill-box {
-      background: #232946;
-      color: var(--white);
+      background: #f3e9e1;
+      color: #3a3a3a;
       border: 1.2px solid var(--primary);
       border-radius: 6px;
       padding: 0.35rem 0.9rem;
@@ -282,19 +498,35 @@
       font-weight: 600;
       box-shadow: none;
       transition: 
-        background 0.18s, 
-        color 0.18s, 
-        border 0.18s;
+        background 0.18s var(--transition), 
+        color 0.18s var(--transition), 
+        border 0.18s var(--transition),
+        transform 0.18s var(--transition),
+        box-shadow 0.18s var(--transition);
       margin-bottom: 0.1rem;
       letter-spacing: 1px;
       cursor: pointer;
       position: relative;
       z-index: 1;
+      user-select: none;
+      min-width: 0;
+      box-sizing: border-box;
     }
-    .skill-box:hover {
+    .skill-box:hover, .skill-box:focus {
       background: var(--primary);
       color: #fff;
       border-color: var(--accent);
+      transform: scale(1.08) rotate(-2deg);
+      box-shadow: 0 2px 12px #b3aaff33;
+    }
+    .skill-box:active {
+      transform: scale(0.96);
+    }
+    .skill-box.selected {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--primary);
+      box-shadow: 0 2px 12px #ffb08533;
     }
     footer {
       background: var(--secondary);
@@ -305,21 +537,27 @@
       font-size: 0.98rem;
       letter-spacing: 1px;
       border-top: 1.5px solid var(--primary);
-      box-shadow: 0 -2px 16px #23294622;
+      box-shadow: 0 -2px 16px #b3aaff22;
       position: relative;
-      z-index: 2;
+      z-index: 3;
+      opacity: 0.95;
+      transition: opacity 0.3s;
+      word-break: break-word;
+    }
+    footer:hover {
+      opacity: 1;
     }
     /* Scrollbar styling */
     ::-webkit-scrollbar {
       width: 10px;
-      background: #232946;
+      background: #f3e9e1;
     }
     ::-webkit-scrollbar-thumb {
-      background: #232946;
+      background: #b3aaff;
       border-radius: 8px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #3a7afe;
+      background: #6C63FF;
     }
     /* Responsive */
     @media (max-width: 900px) {
@@ -327,24 +565,144 @@
       .skills-categories { flex-direction: column; gap: 1rem; }
       .projects-grid { grid-template-columns: 1fr; }
     }
-    @media (max-width: 600px) {
-      header h1 { font-size: 1.1rem; }
-      h2 { font-size: 1rem; }
-      .about-section { padding: 0.7rem; }
-      .skills-category { padding: 0.5rem; }
-      .project-card { padding: 0.7rem; }
-      nav { gap: 0.7rem; }
+    @media (max-width: 700px) {
+      .container {
+        padding: 0 0.3rem;
+        margin: 1.2rem 0;
+      }
+      header {
+        padding: 1.2rem 0 1rem 0;
+      }
+      nav {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      nav a {
+        font-size: 0.95rem;
+        padding: 0.35rem 0.7rem;
+        margin-bottom: 0.3rem;
+      }
+      h2 {
+        font-size: 1.1rem;
+        padding-left: 0.5rem;
+      }
+      .about-section {
+        padding: 0.7rem 0.5rem 0.7rem 0.5rem;
+      }
+      .skills-category {
+        padding: 0.5rem 0.3rem 0.5rem 0.3rem;
+        min-width: 0;
+      }
+      .project-card {
+        padding: 0.7rem 0.4rem 0.7rem 0.4rem;
+      }
+      .project-title {
+        font-size: 1rem;
+      }
+      .project-desc {
+        font-size: 0.93rem;
+      }
+      .project-links a {
+        font-size: 0.93rem;
+        margin-right: 0.5rem;
+        padding: 0.15em 0.4em;
+      }
+      .skills-category h3 {
+        font-size: 0.98rem;
+      }
+      .skill-box {
+        font-size: 0.93rem;
+        padding: 0.28rem 0.7rem;
+      }
+      .project-image-section img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1rem;
+        padding: 0 0.2rem;
+      }
+      header p {
+        font-size: 0.93rem;
+      }
+      nav {
+        gap: 0.2rem;
+      }
+      nav a {
+        font-size: 0.9rem;
+        padding: 0.25rem 0.5rem;
+      }
+      h2 {
+        font-size: 0.95rem;
+        padding-left: 0.3rem;
+      }
+      .about-section {
+        padding: 0.4rem 0.2rem 0.4rem 0.2rem;
+      }
+      .skills-category {
+        padding: 0.3rem 0.1rem 0.3rem 0.1rem;
+      }
+      .project-card {
+        padding: 0.4rem 0.1rem 0.4rem 0.1rem;
+      }
+      .project-title {
+        font-size: 0.93rem;
+      }
+      .project-desc {
+        font-size: 0.89rem;
+      }
+      .project-links a {
+        font-size: 0.89rem;
+        margin-right: 0.3rem;
+        padding: 0.1em 0.2em;
+      }
+      .skills-category h3 {
+        font-size: 0.93rem;
+      }
+      .skill-box {
+        font-size: 0.89rem;
+        padding: 0.18rem 0.5rem;
+      }
+      .project-image-section img {
+        max-width: 100%;
+        height: auto;
+      }
+      section {
+        margin-bottom: 1.2rem;
+      }
+      footer {
+        font-size: 0.89rem;
+        padding: 0.7rem 0;
+      }
+    }
+    @media (max-width: 370px) {
+      header h1 {
+        font-size: 0.85rem;
+      }
+      h2 {
+        font-size: 0.8rem;
+      }
+      .about-section, .skills-category, .project-card {
+        padding: 0.2rem 0.05rem;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Kenneth G. Caingcoy</h1>
+  <!-- Sakura falling gif background (z-index:0, behind everything) -->
+  <div class="sakura-bg" id="sakuraBg">
+    <img src="https://i.gifer.com/3btx.gif" alt="Sakura falling background gif" aria-hidden="true" id="sakuraGif" />
+  </div>
+  <header id="main-header">
+    <h1 id="scrollTopBtn" title="Back to Top">Kenneth G. Caingcoy</h1>
     <p>Information Technology Graduate</p>
-    <nav>
+    <nav id="main-nav">
       <a href="#about">About Me</a>
       <a href="#projects">Projects</a>
       <a href="#skills">Skills</a>
+      <a href="#resume">Resume</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
@@ -361,7 +719,7 @@
     <section id="projects">
       <h2>Projects</h2>
       <div class="projects-grid">
-        <div class="project-card">
+        <div class="project-card" tabindex="0">
           <div>
             <div class="project-title">Capstone Project: Smart IoT-Based Organic Plant Waste Composting Production System</div>
             <div class="project-desc">
@@ -379,7 +737,7 @@
             <a href="#" target="_blank">GitHub</a>
           </div>
         </div>
-        <div class="project-card">
+        <div class="project-card" tabindex="0">
           <div>
             <div class="project-title">Task Manager Desktop App (Visual Basic .NET)</div>
             <div class="project-desc">
@@ -394,18 +752,50 @@
             </div>
           </div>
           <div class="project-links">
-            <a href="#" target="_blank">GitHub</a>
+            <a href="https://github.com/Kenthexe/Task-Manager-Desktop-App-Visual-Basic-.NET-" target="_blank">GitHub</a>
           </div>
         </div>
-        <div class="project-card">
+        <div class="project-card" tabindex="0">
           <div>
-            <div class="project-title">Bading si Ryan</div>
+            <div class="project-title">Advanced Weather Checker (Python + API)</div>
             <div class="project-desc">
-              Bading na Bading si Ryan
+              <strong>Personal Project</strong><br>
+              <em>2024</em>
+              <ul style="margin: 0.5em 0 0 1.2em; color: var(--muted); font-size: 0.98rem; padding-left: 1em;">
+                <li>Developed a Python script that fetches real-time weather data for any city using the OpenWeatherMap API.</li>
+                <li>Key features: current temperature, weather description, humidity, sunrise/sunset, wind speed, feels-like temperature, and 5-day forecast.</li>
+                <li>Includes options to save and search weather history, compare cities, switch between Celsius and Fahrenheit, and export data to CSV.</li>
+                <li>Provides clothing/activity suggestions based on weather and links to weather maps (precipitation, temperature, wind).</li>
+                <li>Utilized Python modules: <code>requests</code>, <code>json</code>, <code>csv</code>, <code>datetime</code>, and <code>os</code>.</li>
+              </ul>
             </div>
           </div>
           <div class="project-links">
-            <a href="#" target="_blank">GitHub</a>
+            <a href="https://github.com/Kenthexe/AdvancedWeatherChecker" target="_blank">GitHub</a>
+          </div>
+        </div>
+        <div class="project-card" tabindex="0">
+          <div>
+            <div class="project-title">JS Paint App</div>
+            <div class="project-desc">
+              <strong>Personal Project</strong><br>
+              <em>2023</em>
+              <p>A simple drawing app built with HTML5 Canvas and JavaScript.</p>
+              <ul style="margin: 0.5em 0 0 1.2em; color: var(--muted); font-size: 0.98rem; padding-left: 1em;">
+                <li>Click &amp; draw with mouse or touch</li>
+                <li>Change brush color and size</li>
+                <li>Choose brush shape: Round, Square, Spray, Rainbow</li>
+                <li>Undo (Ctrl+Z or button)</li>
+                <li>Download drawing (Ctrl+S or button)</li>
+                <li>Clear canvas</li>
+                <li>Toggle grid overlay</li>
+                <li>Live brush preview</li>
+                <li>Works on mobile</li>
+              </ul>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/Kenthexe/JS-Paint-App" target="_blank">GitHub</a>
           </div>
         </div>
       </div>
@@ -459,6 +849,11 @@
         </div>
       </div>
     </section>
+    <section id="resume">
+      <h2>Resume</h2>
+      <p>You can download my full resume below:</p>
+      <a href="Kenneth-Caingcoy-Resume.pdf" download style="font-weight: bold; color: var(--primary); text-decoration: underline; transition: color 0.2s, background 0.2s; border-radius: 5px; padding: 0.2em 0.7em; display: inline-block; word-break: break-word;" onmouseover="this.style.color='white';this.style.background='#bfaee3';" onmouseout="this.style.color='var(--primary)';this.style.background='transparent';">📄 Download Resume</a>
+    </section>
     <section id="contact">
       <h2>Contact</h2>
       <p>
@@ -478,5 +873,157 @@
   <footer>
     &copy; 2025 Kenneth G. Caingcoy. All rights reserved.
   </footer>
+  <script>
+    // Smooth section fade-in on scroll
+    function revealSections() {
+      const sections = document.querySelectorAll('section');
+      const trigger = window.innerHeight * 0.85;
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < trigger) {
+          section.classList.add('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', revealSections);
+    window.addEventListener('DOMContentLoaded', revealSections);
+
+    // Sticky header hide-on-scroll-up effect
+    const header = document.getElementById('main-header');
+    let lastScroll = window.scrollY;
+    let ticking = false;
+    let headerHidden = false;
+
+    function handleHeaderSticky() {
+      const currentScroll = window.scrollY;
+      if (currentScroll > 40) {
+        header.classList.add('sticky');
+        // Hide header when scrolling down, show when scrolling up
+        if (currentScroll > lastScroll + 5) {
+          // Scrolling down
+          if (!header.classList.contains('hide')) {
+            header.classList.add('hide');
+            headerHidden = true;
+          }
+        } else if (currentScroll < lastScroll - 5) {
+          // Scrolling up
+          if (header.classList.contains('hide')) {
+            header.classList.remove('hide');
+            headerHidden = false;
+          }
+        }
+      } else {
+        header.classList.remove('sticky');
+        header.classList.remove('hide');
+        headerHidden = false;
+      }
+      lastScroll = currentScroll;
+    }
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          handleHeaderSticky();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // Sakura gif background day/night change
+    function updateSakuraBg() {
+      const sakuraBg = document.getElementById('sakuraBg');
+      const now = new Date();
+      const hour = now.getHours();
+      // Night: 19:00-6:59, Day: 7:00-18:59
+      if (hour >= 19 || hour < 7) {
+        sakuraBg.classList.add('night');
+      } else {
+        sakuraBg.classList.remove('night');
+      }
+    }
+    updateSakuraBg();
+    setInterval(updateSakuraBg, 5 * 60 * 1000); // update every 5 minutes
+
+    // Scrollspy for nav highlighting
+    const navLinks = document.querySelectorAll('#main-nav a');
+    const sectionIds = Array.from(navLinks).map(a => a.getAttribute('href').replace('#',''));
+    function updateActiveNav() {
+      let index = 0;
+      for (let i = 0; i < sectionIds.length; i++) {
+        const sec = document.getElementById(sectionIds[i]);
+        if (sec && sec.getBoundingClientRect().top - 80 < 0) {
+          index = i;
+        }
+      }
+      navLinks.forEach((a, i) => {
+        if (i === index) a.classList.add('active');
+        else a.classList.remove('active');
+      });
+    }
+    window.addEventListener('scroll', updateActiveNav);
+    window.addEventListener('DOMContentLoaded', updateActiveNav);
+
+    // Smooth scroll for nav
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            window.scrollTo({
+              top: target.offsetTop - 30,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+
+    // Back to top on header h1 click
+    document.getElementById('scrollTopBtn').addEventListener('click', function() {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+
+    // Interactive skill-box selection
+    document.querySelectorAll('.skill-box').forEach(box => {
+      box.addEventListener('click', function() {
+        if (this.classList.contains('selected')) {
+          this.classList.remove('selected');
+        } else {
+          document.querySelectorAll('.skill-box.selected').forEach(b => b.classList.remove('selected'));
+          this.classList.add('selected');
+        }
+      });
+      box.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        }
+      });
+      box.setAttribute('tabindex', '0');
+      box.setAttribute('title', 'Click to highlight');
+    });
+
+    // Project card focus/keyboard accessibility
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.classList.toggle('active');
+        }
+      });
+    });
+
+    // Animate h2 underline on section visible
+    document.querySelectorAll('section').forEach(section => {
+      section.addEventListener('transitionend', function(e) {
+        if (e.propertyName === 'opacity' && section.classList.contains('visible')) {
+          const h2 = section.querySelector('h2');
+          if (h2) h2.classList.add('underline-animate');
+        }
+      });
+    });
+  </script>
 </body>
 </html>

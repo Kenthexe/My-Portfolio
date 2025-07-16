@@ -8,18 +8,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #bfaee3;
-      --secondary: #F6F7FB;
-      --accent: #FFB085;
-      --bg: #F9F6F2;
-      --bg-gradient: linear-gradient(135deg, #F6F7FB 0%, #F9F6F2 100%);
-      --white: #fffdfa;
-      --card-bg: #fff6ee;
-      --border: #e0d7d1;
-      --muted: #7d7c7a;
-      --shadow: 0 2px 16px #e0d7d155;
-      --hover: #f3e9e1;
-      --sakura-pink: #ffe4ef;
+      --primary: #b7aaff;
+      --secondary: #23243a;
+      --accent: #ffb085;
+      --bg: #181926;
+      --bg-gradient: linear-gradient(135deg, #23243a 0%, #181926 100%);
+      --white: #23243a;
+      --card-bg: #23243a;
+      --border: #35365a;
+      --muted: #b3b6c7;
+      --shadow: 0 2px 16px #1a1b2a88;
+      --hover: #23243a;
+      --sakura-pink: #3a2c3c;
       --sakura-petal: #f9b6c5;
       --transition: cubic-bezier(.77,0,.18,1);
     }
@@ -32,7 +32,7 @@
       min-height: 100vh;
       font-family: 'Share Tech Mono', 'Montserrat', monospace, sans-serif;
       background: var(--bg-gradient);
-      color: #3a3a3a;
+      color: #e6e6f0;
       position: relative;
       overflow-x: hidden;
     }
@@ -49,29 +49,32 @@
       width: 100vw;
       height: 100vh;
       object-fit: cover;
-      opacity: 0.25;
+      opacity: 0.13;
       pointer-events: none;
       user-select: none;
       display: block;
+      /* Lowered blur for better gif visibility */
+      filter: grayscale(0.5) brightness(0.5) blur(0.15px) contrast(1.1);
       animation: sakuraFade 8s ease-in-out infinite alternate;
-      transition: opacity 1.2s;
+      transition: opacity 1.2s, filter 1.2s;
     }
     .sakura-bg.night img {
-      opacity: 0.12 !important;
-      filter: grayscale(0.7) brightness(0.7) blur(1px);
+      opacity: 0.08 !important;
+      /* Lowered blur for night mode as well */
+      filter: grayscale(0.7) brightness(0.3) blur(0.4px) contrast(1.1);
       transition: opacity 1.2s, filter 1.2s;
     }
     @keyframes sakuraFade {
-      0% { opacity: 0.18; }
-      100% { opacity: 0.28; }
+      0% { opacity: 0.08; }
+      100% { opacity: 0.16; }
     }
     body::before {
       content: "";
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       z-index: 1;
-      background: radial-gradient(circle at 80% 20%, #b3aaff33 0%, transparent 60%),
-                  radial-gradient(circle at 20% 80%, #ffd6b322 0%, transparent 70%);
+      background: radial-gradient(circle at 80% 20%, #b7aaff22 0%, transparent 60%),
+                  radial-gradient(circle at 20% 80%, #ffb08522 0%, transparent 70%);
       pointer-events: none;
       animation: bgGlow 8s var(--transition) infinite alternate;
     }
@@ -81,7 +84,7 @@
     }
     header {
       background: transparent;
-      color: #3a3a3a;
+      color: #e6e6f0;
       padding: 2.2rem 0 1.5rem 0;
       text-align: center;
       position: relative;
@@ -89,32 +92,15 @@
       transition: background 0.4s var(--transition), box-shadow 0.4s var(--transition), top 0.4s var(--transition), opacity 0.3s;
       will-change: top, opacity;
     }
-    header.sticky {
-      background: var(--white);
-      box-shadow: 0 2px 16px #b3aaff22;
-      position: sticky;
-      top: 0;
-      animation: stickyFadeIn 0.5s;
-      opacity: 1;
-      transition: background 0.4s var(--transition), box-shadow 0.4s var(--transition), top 0.4s var(--transition), opacity 0.3s;
-    }
-    header.hide {
-      opacity: 0;
-      pointer-events: none;
-      top: -80px !important;
-      transition: opacity 0.3s, top 0.4s var(--transition);
-    }
-    @keyframes stickyFadeIn {
-      from { opacity: 0; transform: translateY(-20px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
+    /* Remove sticky and hide classes and stickyFadeIn animation */
+    /* header.sticky, header.hide, @keyframes stickyFadeIn { ... } -- REMOVED */
     header h1 {
       margin: 0;
       font-size: 2.3rem;
       letter-spacing: 2px;
       font-family: 'Share Tech Mono', monospace;
       color: var(--primary);
-      text-shadow: 0 2px 8px #b3aaff33;
+      text-shadow: 0 2px 8px #b7aaff33;
       font-weight: 700;
       cursor: pointer;
       transition: color 0.3s var(--transition), text-shadow 0.3s var(--transition);
@@ -148,7 +134,7 @@
       flex-wrap: wrap;
     }
     nav a {
-      color: #3a3a3a;
+      color: #e6e6f0;
       text-decoration: none;
       font-weight: 600;
       font-size: 1rem;
@@ -182,8 +168,8 @@
     nav a:hover, nav a:focus {
       color: var(--primary);
       border: 1.5px solid var(--primary);
-      background: var(--hover);
-      box-shadow: 0 2px 12px #b3aaff22;
+      background: #23243a;
+      box-shadow: 0 2px 12px #b7aaff22;
       transform: translateY(-2px) scale(1.04);
     }
     nav a:hover::after, nav a:focus::after {
@@ -193,7 +179,7 @@
     nav a.active {
       color: var(--accent);
       border: 1.5px solid var(--accent);
-      background: var(--sakura-pink);
+      background: #2d2230;
       box-shadow: 0 2px 12px #ffb08522;
     }
     .container {
@@ -251,26 +237,27 @@
       width: 60%;
     }
     .about-section {
-      background: var(--card-bg);
+      background: #23243a;
       border-radius: 12px;
-      box-shadow: var(--shadow);
+      box-shadow: 0 2px 16px #1a1b2a88;
       padding: 1.7rem 1.5rem 1.5rem 1.5rem;
       margin-bottom: 3rem;
-      border: 1.5px solid var(--border);
+      border: 1.5px solid #35365a;
       position: relative;
       overflow: hidden;
       transition: box-shadow 0.3s var(--transition), border 0.3s var(--transition);
       box-sizing: border-box;
     }
     .about-section:hover {
-      box-shadow: 0 6px 32px #b3aaff33, 0 1.5px 8px #ffd6b333;
+      box-shadow: 0 6px 32px #b7aaff33, 0 1.5px 8px #ffb08533;
       border: 1.5px solid var(--primary);
+      background: #282a3d;
     }
     .about-section::before {
       content: "";
       position: absolute;
       top: -20px; left: -20px; right: -20px; bottom: -20px;
-      background: radial-gradient(circle at 80% 10%, #b3aaff11 0%, transparent 70%);
+      background: radial-gradient(circle at 80% 10%, #b7aaff11 0%, transparent 70%);
       z-index: 0;
       pointer-events: none;
       animation: aboutGlow 5s var(--transition) infinite alternate;
@@ -332,9 +319,9 @@
       box-sizing: border-box;
     }
     .project-card {
-      background: var(--card-bg);
+      background: #23243a;
       border-radius: 14px;
-      box-shadow: var(--shadow);
+      box-shadow: 0 2px 16px #1a1b2a88;
       padding: 1.2rem 1rem 1rem 1rem;
       transition: 
         transform 0.28s var(--transition), 
@@ -344,7 +331,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      border: 1.5px solid var(--border);
+      border: 1.5px solid #35365a;
       position: relative;
       overflow: hidden;
       cursor: pointer;
@@ -354,9 +341,9 @@
     }
     .project-card:hover, .project-card:focus-within {
       transform: translateY(-8px) scale(1.035) rotate(-0.5deg);
-      box-shadow: 0 8px 36px #b3aaff44, 0 2px 12px #ffd6b344;
+      box-shadow: 0 8px 36px #b7aaff44, 0 2px 12px #ffb08544;
       border: 1.5px solid var(--primary);
-      background: #f3e9e1;
+      background: #282a3d;
       opacity: 1;
     }
     .project-card:active {
@@ -397,15 +384,15 @@
     .project-image-section img {
       max-width: 100%;
       border-radius: 10px;
-      box-shadow: 0 2px 12px #b3aaff22;
-      border: 1.5px solid var(--border);
-      background: #fff;
+      box-shadow: 0 2px 12px #b7aaff22;
+      border: 1.5px solid #35365a;
+      background: #23243a;
       transition: box-shadow 0.18s var(--transition), border 0.18s var(--transition), transform 0.18s var(--transition);
       cursor: pointer;
       height: auto;
     }
     .project-image-section img:hover {
-      box-shadow: 0 4px 24px #6C63FF33;
+      box-shadow: 0 4px 24px #b7aaff33;
       border: 1.5px solid var(--primary);
       transform: scale(1.04) rotate(-1deg);
     }
@@ -428,7 +415,7 @@
     .project-links a:hover, .project-links a:focus {
       color: var(--accent);
       border-color: var(--accent);
-      background: var(--sakura-pink);
+      background: #2d2230;
       box-shadow: 0 2px 8px #ffb08522;
       transform: scale(1.07);
     }
@@ -445,22 +432,22 @@
     .skills-category {
       flex: 1 1 220px;
       min-width: 180px;
-      background: var(--card-bg);
+      background: #23243a;
       border-radius: 10px;
-      box-shadow: var(--shadow);
+      box-shadow: 0 2px 16px #1a1b2a88;
       padding: 1rem 0.8rem 0.8rem 0.8rem;
       display: flex;
       flex-direction: column;
-      border: 1.5px solid var(--border);
+      border: 1.5px solid #35365a;
       position: relative;
       overflow: hidden;
       transition: box-shadow 0.3s var(--transition), border 0.3s var(--transition), background 0.3s var(--transition);
       box-sizing: border-box;
     }
     .skills-category:hover {
-      box-shadow: 0 6px 32px #b3aaff33, 0 1.5px 8px #ffd6b333;
+      box-shadow: 0 6px 32px #b7aaff33, 0 1.5px 8px #ffb08533;
       border: 1.5px solid var(--primary);
-      background: #f3e9e1;
+      background: #282a3d;
     }
     .skills-category h3 {
       color: var(--primary);
@@ -489,8 +476,8 @@
       box-sizing: border-box;
     }
     .skill-box {
-      background: #f3e9e1;
-      color: #3a3a3a;
+      background: #282a3d;
+      color: #e6e6f0;
       border: 1.2px solid var(--primary);
       border-radius: 6px;
       padding: 0.35rem 0.9rem;
@@ -514,22 +501,22 @@
     }
     .skill-box:hover, .skill-box:focus {
       background: var(--primary);
-      color: #fff;
+      color: #23243a;
       border-color: var(--accent);
       transform: scale(1.08) rotate(-2deg);
-      box-shadow: 0 2px 12px #b3aaff33;
+      box-shadow: 0 2px 12px #b7aaff33;
     }
     .skill-box:active {
       transform: scale(0.96);
     }
     .skill-box.selected {
       background: var(--accent);
-      color: #fff;
+      color: #23243a;
       border-color: var(--primary);
       box-shadow: 0 2px 12px #ffb08533;
     }
     footer {
-      background: var(--secondary);
+      background: #23243a;
       color: var(--muted);
       text-align: center;
       padding: 1rem 0;
@@ -537,7 +524,7 @@
       font-size: 0.98rem;
       letter-spacing: 1px;
       border-top: 1.5px solid var(--primary);
-      box-shadow: 0 -2px 16px #b3aaff22;
+      box-shadow: 0 -2px 16px #b7aaff22;
       position: relative;
       z-index: 3;
       opacity: 0.95;
@@ -550,14 +537,14 @@
     /* Scrollbar styling */
     ::-webkit-scrollbar {
       width: 10px;
-      background: #f3e9e1;
+      background: #23243a;
     }
     ::-webkit-scrollbar-thumb {
-      background: #b3aaff;
+      background: #b7aaff;
       border-radius: 8px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #6C63FF;
+      background: #8e7be7;
     }
     /* Responsive */
     @media (max-width: 900px) {
@@ -688,12 +675,17 @@
         padding: 0.2rem 0.05rem;
       }
     }
+    /* Custom selection color for dark mode */
+    ::selection {
+      background: #b7aaff44;
+      color: #fff;
+    }
   </style>
 </head>
 <body>
   <!-- Sakura falling gif background (z-index:0, behind everything) -->
   <div class="sakura-bg" id="sakuraBg">
-    <img src="https://i.gifer.com/Erie.gif" alt="Sakura falling background gif" aria-hidden="true" id="sakuraGif" />
+    <img src="https://i.gifer.com/Lwdj.gif" alt="Sakura falling background gif" aria-hidden="true" id="sakuraGif" />
   </div>
   <header id="main-header">
     <h1 id="scrollTopBtn" title="Back to Top">Kenneth G. Caingcoy</h1>
@@ -857,7 +849,7 @@
     <section id="resume">
       <h2>Resume</h2>
       <p>You can download my full resume below:</p>
-      <a href="KENNETH_CAINGCOY_FINAL.pdf" download style="font-weight: bold; color: var(--primary); text-decoration: underline; transition: color 0.2s, background 0.2s; border-radius: 5px; padding: 0.2em 0.7em; display: inline-block; word-break: break-word;" onmouseover="this.style.color='white';this.style.background='#bfaee3';" onmouseout="this.style.color='var(--primary)';this.style.background='transparent';">📄 Download Resume</a>
+      <a href="KENNETH_CAINGCOY_FINAL.pdf" download style="font-weight: bold; color: var(--primary); text-decoration: underline; transition: color 0.2s, background 0.2s; border-radius: 5px; padding: 0.2em 0.7em; display: inline-block; word-break: break-word; background: #23243a;" onmouseover="this.style.color='#23243a';this.style.background='#b7aaff';" onmouseout="this.style.color='var(--primary)';this.style.background='#23243a';">📄 Download Resume</a>
     </section>
     <section id="contact">
       <h2>Contact</h2>
@@ -865,10 +857,23 @@
         I'm excited to connect with you! Whether you have a project idea, want to collaborate, or just want to say hello, don't hesitate to reach out. Let's create something amazing together!
       </p>
       <p>
-        <strong>Email:</strong> <a href="mailto:caingcoy.kenneth.02152003@gmail.com">caingcoy.kenneth.02152003@gmail.com</a>
+        <strong>Email:</strong>
+        <a
+          href="mailto:caingcoy.kenneth.02152003@gmail.com"
+          style="color: #b7aaff; text-decoration: underline; border-radius: 4px; padding: 0 0.2em; transition: color 0.2s, text-decoration-color 0.2s;"
+          onmouseover="this.style.color='#7e6bc9';this.style.textDecorationColor='#7e6bc9';"
+          onmouseout="this.style.color='#b7aaff';this.style.textDecorationColor='';"
+        >caingcoy.kenneth.02152003@gmail.com</a>
       </p>
       <p>
-        <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/kenneth-caingcoy-90762b369?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank">Kenneth Caingcoy</a>
+        <strong>LinkedIn:</strong>
+        <a
+          href="https://www.linkedin.com/in/kenneth-caingcoy-90762b369?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+          target="_blank"
+          style="color: #b7aaff; text-decoration: underline; border-radius: 4px; padding: 0 0.2em; transition: color 0.2s, text-decoration-color 0.2s;"
+          onmouseover="this.style.color='#7e6bc9';this.style.textDecorationColor='#7e6bc9';"
+          onmouseout="this.style.color='#b7aaff';this.style.textDecorationColor='';"
+        >Kenneth Caingcoy</a>
       </p>
       <p>
         <strong>Contact Number:</strong> 09179703454
@@ -893,47 +898,8 @@
     window.addEventListener('scroll', revealSections);
     window.addEventListener('DOMContentLoaded', revealSections);
 
-    // Sticky header hide-on-scroll-up effect
-    const header = document.getElementById('main-header');
-    let lastScroll = window.scrollY;
-    let ticking = false;
-    let headerHidden = false;
-
-    function handleHeaderSticky() {
-      const currentScroll = window.scrollY;
-      if (currentScroll > 40) {
-        header.classList.add('sticky');
-        // Hide header when scrolling down, show when scrolling up
-        if (currentScroll > lastScroll + 5) {
-          // Scrolling down
-          if (!header.classList.contains('hide')) {
-            header.classList.add('hide');
-            headerHidden = true;
-          }
-        } else if (currentScroll < lastScroll - 5) {
-          // Scrolling up
-          if (header.classList.contains('hide')) {
-            header.classList.remove('hide');
-            headerHidden = false;
-          }
-        }
-      } else {
-        header.classList.remove('sticky');
-        header.classList.remove('hide');
-        headerHidden = false;
-      }
-      lastScroll = currentScroll;
-    }
-    window.addEventListener('scroll', function() {
-      if (!ticking) {
-        window.requestAnimationFrame(function() {
-          handleHeaderSticky();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    });
-
+    // REMOVE sticky header hide-on-scroll-up effect
+    // (Remove all sticky/hide logic and related variables)
     // Sakura gif background day/night change
     function updateSakuraBg() {
       const sakuraBg = document.getElementById('sakuraBg');
@@ -1020,7 +986,6 @@
       });
     });
 
-    // Animate h2 underline on section visible
     document.querySelectorAll('section').forEach(section => {
       section.addEventListener('transitionend', function(e) {
         if (e.propertyName === 'opacity' && section.classList.contains('visible')) {
